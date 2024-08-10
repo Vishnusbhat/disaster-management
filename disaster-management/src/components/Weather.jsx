@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../styles/Weather.css';  // Import the CSS file
 
 const Weather = ({ coordinates }) => {
   const [weatherData, setWeatherData] = useState(null);
@@ -25,7 +26,6 @@ const Weather = ({ coordinates }) => {
           console.log(response);
           setWeatherData(response.data);
         } catch (err) {
-          // Log the error to the console for debugging
           console.error('Error fetching weather data:', err.response ? err.response.data : err.message);
           setError('Failed to fetch weather data');
         } finally {
@@ -40,22 +40,20 @@ const Weather = ({ coordinates }) => {
   if (loading) return <p>Loading weather...</p>;
   if (error) return <p>{error}</p>;
 
-  // For the forecast endpoint, you may want to show the data differently.
-  // Here is a basic example of displaying the first entry from the forecast data.
   const forecast = weatherData?.list[0];
 
   return (
-    <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', padding: '10px', borderRadius: '8px' }}>
-      <h3>Weather Forecast</h3>
+    <div className="weather-box">
+      <h3 className="weather-title">Weather Forecast</h3>
       {forecast ? (
-        <div>
-          <p>Temperature: {forecast.main.temp}°C</p>
-          <p>Condition: {forecast.weather[0].description}</p>
-          <p>Humidity: {forecast.main.humidity}%</p>
-          <p>Wind Speed: {forecast.wind.speed} m/s</p>
+        <div className="weather-details">
+          <p className="weather-text">Temperature: {forecast.main.temp}°C</p>
+          <p className="weather-text">Condition: {forecast.weather[0].description}</p>
+          <p className="weather-text">Humidity: {forecast.main.humidity}%</p>
+          <p className="weather-text">Wind Speed: {forecast.wind.speed} m/s</p>
         </div>
       ) : (
-        <p>No forecast data available</p>
+        <p className="weather-text">No forecast data available</p>
       )}
     </div>
   );
