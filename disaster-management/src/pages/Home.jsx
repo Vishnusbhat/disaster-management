@@ -1,5 +1,5 @@
 import { Box, Heading, Text } from '@chakra-ui/react';
-import Map from '../components/map';
+import Map from '../components/Map';
 
 const Home = () => {
   return (
