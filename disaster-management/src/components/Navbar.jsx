@@ -14,11 +14,8 @@ const Navbar = () => {
               Home
             </Button>
           </Link>
-          <Link to="/about">
-            <Button variant="ghost" colorScheme="whiteAlpha">
-              About
-            </Button>
-          </Link>
+          <Link to="/disaster-details"><Button variant="ghost" colorScheme="whiteAlpha">Disaster Details</Button></Link> {/* Updated link */}
+
           <Link to="/resources">
             <Button variant="ghost" colorScheme="whiteAlpha">
               Resources
