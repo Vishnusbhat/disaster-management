@@ -29,6 +29,16 @@ const Navbar = () => {
               Emergency Contacts
             </Button>
           </Link>
+          <Link to="/login">
+            <Button variant="ghost" colorScheme="whiteAlpha">
+              Login
+            </Button>
+          </Link>
+          <Link to="/signup">
+            <Button variant="ghost" colorScheme="whiteAlpha">
+              Signup
+            </Button>
+          </Link>
         </Flex>
       </Flex>
     </Box>

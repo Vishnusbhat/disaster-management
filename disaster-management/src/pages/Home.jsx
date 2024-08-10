@@ -1,25 +1,22 @@
 import React from 'react';
 import useGeolocation from '../hooks/useGeolocation';
 import Map from '../components/Map';
-import Weather from '../components/Weather';
 
 const Home = () => {
   const { coordinates, error } = useGeolocation();
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+    <div>
+      {/* <h1>Home Page</h1> */}
       {error && <p>Error: {error}</p>}
       {coordinates ? (
-        <div style={{ flex: 1 }}>
+        <div>
+          {/* <p>Latitude: {coordinates.latitude}</p>
+          <p>Longitude: {coordinates.longitude}</p> */}
           <Map coordinates={coordinates} />
         </div>
       ) : (
         <p>Getting coordinates...</p>
-      )}
-      {coordinates && (
-        <div style={{ flex: 0.3, marginLeft: '20px' }}>
-          <Weather coordinates={coordinates} />
-        </div>
       )}
     </div>
   );
