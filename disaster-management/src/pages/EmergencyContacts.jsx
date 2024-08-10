@@ -18,15 +18,15 @@ const EmergencyContacts = () => {
             </ListItem>
             <ListItem>
               <Text fontWeight="bold">Fire Department:</Text>
-              <Text>(123) 456-7890</Text>
+              <Text>100</Text>
             </ListItem>
             <ListItem>
               <Text fontWeight="bold">Police Department:</Text>
-              <Text>(123) 456-7891</Text>
+              <Text>100</Text>
             </ListItem>
             <ListItem>
               <Text fontWeight="bold">Hospital:</Text>
-              <Text>(123) 456-7892</Text>
+              <Text>108</Text>
             </ListItem>
             <ListItem>
               <Text fontWeight="bold">Local Red Cross:</Text>

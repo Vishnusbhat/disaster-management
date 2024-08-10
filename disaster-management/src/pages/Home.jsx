@@ -10,7 +10,7 @@ const Home = () => {
       <Text fontSize="lg" mb={6}>
         Stay informed and prepared with real-time updates and resources.
       </Text>
-      <Map />
+      <Map/>
     </Box>
   );
 };
