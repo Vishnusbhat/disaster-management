@@ -1,72 +1,123 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Flex, Text, Image, VStack } from '@chakra-ui/react';
-import { db } from '../firebase'; // Make sure this is the correct path
-import { collection, getDocs } from 'firebase/firestore';
+import axios from 'axios';
+import emailjs from 'emailjs-com';
+import { getAuth } from 'firebase/auth';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import { app } from '../firebase';
+import './SOSButton.css'; // Import the CSS for styling
 
-const ReportsDisplay = () => {
-  const [reports, setReports] = useState([]);
+const SOSButton = () => {
+  const [user, setUser] = useState({
+    name: '',
+    age: '',
+    gender: '',
+    email: '',
+    latitude: null,
+    longitude: null,
+  });
 
-  useEffect(() => {
-    const fetchReports = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, 'Disasters'));
-        const reportsData = querySnapshot.docs.map(doc => doc.data());
-        setReports(reportsData);
-      } catch (error) {
-        console.error('Error fetching reports:', error);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // Function to fetch user data from Firestore
+  const fetchUserData = async () => {
+    const userId = auth.currentUser?.uid;
+    if (!userId) return;
+
+    try {
+      const userDoc = await getDoc(doc(db, 'Users', userId));
+      if (userDoc.exists()) {
+        setUser(userDoc.data());
+      } else {
+        console.error('No user data found');
       }
-    };
+    } catch (error) {
+      console.error('Error fetching user data', error);
+    }
+  };
 
-    fetchReports();
+  // Fetch user data when component mounts
+  useEffect(() => {
+    fetchUserData();
   }, []);
 
+  const storeUserData = async () => {
+    try {
+      await axios.post('http://localhost:3000/api/store-user', user);
+      console.log('User data stored successfully');
+    } catch (error) {
+      console.error('Error storing user data', error);
+    }
+  };
+
+  const handleSOS = async () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        const { latitude, longitude } = position.coords;
+
+        // Update user data with current location
+        const updatedUser = {
+          ...user,
+          latitude,
+          longitude,
+        };
+        setUser(updatedUser);
+
+        // Store updated user data
+        await storeUserData();
+
+        // Send the SOS signal with updated location
+        await sendSOS(updatedUser);
+      });
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  };
+
+  const sendSOS = async (userData) => {
+  const templateParams = {
+    name: userData.name,
+    age: userData.age,
+    gender: userData.gender,
+    email: userData.email,
+    latitude: userData.latitude,
+    longitude: userData.longitude,
+  };
+
+  // Log the details to be sent in the email
+  console.log('Sending SOS with the following details:', templateParams);
+
+  try {
+    const result = await emailjs.send(
+      'service_vifv5t2',    // Replace with your EmailJS Service ID
+      'template_pukzjig',   // Replace with your EmailJS Template ID
+      templateParams,
+      'J_RNHYKAMZO3CPfd4'   // Replace with your EmailJS User ID
+    );
+    console.log('SOS sent successfully', result.text);
+
+    // Show an alert after successful email sending
+    alert('SOS email sent successfully!');
+
+    // Optionally, send the SOS to your backend
+    await axios.post('http://localhost:3000/api/send-sos', {
+      latitude: userData.latitude,
+      longitude: userData.longitude,
+    });
+  } catch (error) {
+    console.error('Error sending SOS', error);
+    alert('Failed to send SOS. Please try again.');
+  }
+};
+
+
   return (
-    <Box p={4}>
-      <Flex 
-        overflowX="auto" 
-        p={4} 
-        alignItems="center" 
-        justifyContent="center"
-      >
-        {reports.map((report, index) => {
-          const imageUrl = `https://firebasestorage.googleapis.com/v0/b/disaster-management-2bbc4.appspot.com/o/disasters%2F${encodeURIComponent(report.imageName)}?alt=media&token=190eee20-4125-4c53-8c71-8f61e36b8595`;
-
-          // Log URL to debug
-          console.log(`Image URL: ${imageUrl}`);
-
-          return (
-            <Box
-              key={index}
-              borderWidth="1px"
-              borderRadius="lg"
-              overflow="hidden"
-              boxShadow="md"
-              width="400px" // Adjusted width for larger cards
-              height="auto" // Auto height based on content
-              mx={2} // Horizontal margin
-            >
-              {report.imageName && (
-                <Image
-                  src={imageUrl}
-                  alt={report.title}
-                  objectFit="cover"
-                  width="100%"
-                  height="250px" // Increased height for images
-                  fallbackSrc="https://via.placeholder.com/400x250" // Placeholder image if loading fails
-                />
-              )}
-              <VStack p={4} align="start">
-                <Text fontWeight="bold" fontSize="lg">{report.title}</Text>
-                <Text>{report.description}</Text>
-                <Text>Location: {report.latitude}, {report.longitude}</Text>
-                <Text>UPI ID: {report.upiId}</Text>
-              </VStack>
-            </Box>
-          );
-        })}
-      </Flex>
-    </Box>
+    <div className="sos-button-container">
+      <button className="sos-button" onClick={handleSOS}>
+        Send SOS
+      </button>
+    </div>
   );
 };
 
-export default ReportsDisplay;
+export default SOSButton;
