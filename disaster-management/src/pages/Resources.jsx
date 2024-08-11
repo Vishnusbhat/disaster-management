@@ -64,7 +64,7 @@ const Resources = () => {
               <Text fontSize="xl" fontWeight="bold" mb={3}>
                 India Meteorological Department (IMD)
               </Text>
-              <Link href="https://www.imd.gov.in/" isExternal>
+              <Link href="https://mausam.imd.gov.in/" isExternal>
                 <Button colorScheme="teal" size="lg">
                   Visit IMD
                 </Button>
@@ -92,7 +92,7 @@ const Resources = () => {
               <Text fontSize="xl" fontWeight="bold" mb={3}>
                 National Center for Seismology (NCS)
               </Text>
-              <Link href="https://seismology.gov.in/" isExternal>
+              <Link href="https://seismo.gov.in/" isExternal>
                 <Button colorScheme="orange" size="lg">
                   Visit NCS
                 </Button>
@@ -120,7 +120,7 @@ const Resources = () => {
               <Text fontSize="xl" fontWeight="bold" mb={3}>
                 National Flood Forecasting and Warning Centre (NFFWC)
               </Text>
-              <Link href="https://nffwc.gov.in/" isExternal>
+              <Link href="https://ffs.india-water.gov.in/#/" isExternal>
                 <Button colorScheme="purple" size="lg">
                   Visit NFFWC
                 </Button>

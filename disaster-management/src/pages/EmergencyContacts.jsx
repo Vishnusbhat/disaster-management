@@ -44,7 +44,7 @@ const EmergencyContacts = () => {
               <Text fontSize="lg" mb={3}>
                 100
               </Text>
-              <Link href="https://www.mha.gov.in/sites/default/files/ImportantPhoneNumbers_22052019.pdf" isExternal>
+              <Link href="tel:100">
                 <Button colorScheme="blue">
                   More Details
                 </Button>
@@ -72,7 +72,7 @@ const EmergencyContacts = () => {
               <Text fontSize="lg" mb={3}>
                 101
               </Text>
-              <Link href="https://www.nfsc.gov.in/" isExternal>
+              <Link href="tel:101">
                 <Button colorScheme="red">
                   More Details
                 </Button>
@@ -100,7 +100,7 @@ const EmergencyContacts = () => {
               <Text fontSize="lg" mb={3}>
                 102
               </Text>
-              <Link href="https://www.ambulanceindia.com/" isExternal>
+              <Link href="tel:102">
                 <Button colorScheme="teal">
                   More Details
                 </Button>
@@ -128,7 +128,7 @@ const EmergencyContacts = () => {
               <Text fontSize="lg" mb={3}>
                 108 (Emergency Medical Services)
               </Text>
-              <Link href="https://www.ndma.gov.in/" isExternal>
+              <Link href="tel:108">
                 <Button colorScheme="purple">
                   More Details
                 </Button>
