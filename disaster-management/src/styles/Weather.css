@@ -1,12 +1,15 @@
 /* Weather.css */
 
 .weather-box {
-    background-image: url(../assets/images/wht.jpg);
+    background-color: #ff9d9ddc;
     background-size: cover;
     background-position: center;
     padding: 20px;
     padding-top: 40px;
-    height: 440px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
     margin-top: 10px;
     border-radius: 12px;
