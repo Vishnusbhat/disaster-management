@@ -4,9 +4,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative; /* Positioned fixed so it stays visible */
-    bottom: 80px; /* Adjust to be above the footer */
-    width: 100%;
+    position: absolute; /* Positioned fixed so it stays visible */
+    bottom: 80px;
+    margin-left: 20px;
     z-index: 1000; /* Ensure the button is above other content */
   }
   
@@ -16,6 +16,8 @@
     font-size: 20px;
     font-weight: bold;
     padding: 15px 30px;
+    width: 200px;
+    font-size:x-large;
     border: none;
     border-radius: 10px;
     cursor: pointer;
