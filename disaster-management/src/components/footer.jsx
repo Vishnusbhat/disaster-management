@@ -2,11 +2,13 @@ import { Box, Container, Text, Link, Stack } from '@chakra-ui/react';
 
 const Footer = () => {
   return (
-    <Box as="footer" bg="blue.500" color="white" py={4} mt={8}>
+    <Box as="footer" bg="blue.600" color="white" py={6} mt={8}>
       <Container maxW="container.xl">
         <Stack spacing={4} align="center">
-          <Text>&copy; {new Date().getFullYear()} Disaster Management. All rights reserved.</Text>
-          <Stack direction="row" spacing={4}>
+          <Text fontSize={{ base: 'sm', md: 'md' }} textAlign="center">
+            &copy; {new Date().getFullYear()} Disaster Management. All rights reserved.
+          </Text>
+          <Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 2, md: 6 }}>
             <Link href="/" color="white" _hover={{ textDecoration: 'underline' }}>
               Home
             </Link>
