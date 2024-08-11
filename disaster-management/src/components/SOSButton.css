@@ -4,8 +4,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute; /* Positioned fixed so it stays visible */
-    bottom: 80px;
+    position: fixed; /* Positioned fixed so it stays visible */
+    bottom: 20px;
     margin-left: 20px;
     z-index: 1000; /* Ensure the button is above other content */
   }
