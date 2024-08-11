@@ -23,19 +23,28 @@ import {
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const toast = useToast();
   const navigate = useNavigate();
 
-  const handleEmailPasswordLogin = async (e) => {
+  const handleLogin = async (e, provider = null) => {
     e.preventDefault();
     setLoading(true);
     const auth = getAuth(app);
     const db = getFirestore(app);
 
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      let userCredential;
+
+      if (provider) {
+        // Google login
+        userCredential = await signInWithPopup(auth, provider);
+      } else {
+        // Email and password login
+        userCredential = await signInWithEmailAndPassword(auth, email, password);
+      }
+
       const user = userCredential.user;
 
       navigator.geolocation.getCurrentPosition(async (position) => {
@@ -57,47 +66,7 @@ const Login = () => {
     } catch (err) {
       setError(err.message);
       toast({
-        title: 'Login Failed',
-        description: err.message,
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleGoogleLogin = async () => {
-    setLoading(true);
-    const auth = getAuth(app);
-    const provider = new GoogleAuthProvider();
-    const db = getFirestore(app);
-
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-
-      navigator.geolocation.getCurrentPosition(async (position) => {
-        const { latitude, longitude } = position.coords;
-
-        await setDoc(
-          doc(db, 'Users', user.uid),
-          {
-            email: user.email,
-            lastLogin: new Date().toISOString(),
-            latitude,
-            longitude,
-          },
-          { merge: true }
-        );
-
-        navigate('/');
-      });
-    } catch (err) {
-      setError(err.message);
-      toast({
-        title: 'Google Login Failed',
+        title: provider ? 'Google Login Failed' : 'Login Failed',
         description: err.message,
         status: 'error',
         duration: 5000,
@@ -125,7 +94,7 @@ const Login = () => {
         boxShadow="lg"
         bg="white"
       >
-        <VStack spacing={6} as="form" onSubmit={handleEmailPasswordLogin}>
+        <VStack spacing={6} as="form" onSubmit={(e) => handleLogin(e)}>
           <Heading as="h2" size="xl" color="blue.600" textAlign="center">
             Login
           </Heading>
@@ -160,6 +129,7 @@ const Login = () => {
             isFullWidth
             isLoading={loading}
             loadingText="Logging In"
+            onClick={(e) => handleLogin(e)}
           >
             Login
           </Button>
@@ -167,7 +137,7 @@ const Login = () => {
             mt={4}
             colorScheme="red"
             isFullWidth
-            onClick={handleGoogleLogin}
+            onClick={(e) => handleLogin(e, new GoogleAuthProvider())}
             isLoading={loading}
             loadingText="Logging In"
           >

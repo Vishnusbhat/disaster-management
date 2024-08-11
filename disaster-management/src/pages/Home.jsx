@@ -1,6 +1,6 @@
 import React from 'react';
 import useGeolocation from '../hooks/useGeolocation';
-import Map from '../components/Map';
+import Map from '../components/map';
 import Weather from '../components/Weather';
 
 const Home = () => {
@@ -10,7 +10,7 @@ const Home = () => {
     <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative', height: '80vh' }}>
       {error && <p>Error: {error}</p>}
       {coordinates ? (
-        <div style={{ flex: 1 }}>
+        <div style={{ flex: 1, position: 'relative', zIndex: 1 }}>
           <Map coordinates={coordinates} />
         </div>
       ) : (
@@ -18,13 +18,13 @@ const Home = () => {
       )}
       {coordinates && (
         <div style={{
-          position: 'absolute',
+          position: 'absolute', // Changed to 'absolute' for overlay effect
           top: '10px',
           right: '10px',
           width: '300px',
-          zIndex: 10,
-          backgroundColor: 'rgba(255, 255, 255, 0.5)',
-          padding: '1px',
+          zIndex: 10, // Ensure it's above the map
+          backgroundColor: 'rgba(255, 255, 255, 0.7)', // Slightly more opaque
+          padding: '10px',
           borderRadius: '8px'
         }}>
           <Weather coordinates={coordinates} />

@@ -5,7 +5,7 @@ const EmergencyContacts = () => {
   return (
     <Container maxW="container.xl" py={8} centerContent>
       <Stack spacing={8} textAlign="center">
-        <Text fontSize="4xl" fontWeight="bold" color="blue.600">
+        <Text fontSize={{ base: '2xl', md: '4xl' }} fontWeight="bold" color="blue.600">
           Emergency Contacts in India
         </Text>
         <Box display="flex" justifyContent="center" mb={6}>
@@ -13,7 +13,7 @@ const EmergencyContacts = () => {
             src="https://responsiveweb.nz/storage/app/media/projects/gallery-my-emergency-app-home.jpg" 
             alt="Emergency Contacts" 
             borderRadius="md" 
-            boxSize="50%"  // Reduced size by 50%
+            boxSize={{ base: '75%', md: '50%' }}  // Responsive size
             objectFit="cover"
           />
         </Box>
@@ -44,9 +44,9 @@ const EmergencyContacts = () => {
               <Text fontSize="lg" mb={3}>
                 100
               </Text>
-              <Link href="tel:100">
+              <Link href="tel:100" _hover={{ textDecoration: 'none' }}>
                 <Button colorScheme="blue">
-                  More Details
+                  Call Now
                 </Button>
               </Link>
             </Box>
@@ -72,9 +72,9 @@ const EmergencyContacts = () => {
               <Text fontSize="lg" mb={3}>
                 101
               </Text>
-              <Link href="tel:101">
+              <Link href="tel:101" _hover={{ textDecoration: 'none' }}>
                 <Button colorScheme="red">
-                  More Details
+                  Call Now
                 </Button>
               </Link>
             </Box>
@@ -100,9 +100,9 @@ const EmergencyContacts = () => {
               <Text fontSize="lg" mb={3}>
                 102
               </Text>
-              <Link href="tel:102">
+              <Link href="tel:102" _hover={{ textDecoration: 'none' }}>
                 <Button colorScheme="teal">
-                  More Details
+                  Call Now
                 </Button>
               </Link>
             </Box>
@@ -128,9 +128,9 @@ const EmergencyContacts = () => {
               <Text fontSize="lg" mb={3}>
                 108 (Emergency Medical Services)
               </Text>
-              <Link href="tel:108">
+              <Link href="tel:108" _hover={{ textDecoration: 'none' }}>
                 <Button colorScheme="purple">
-                  More Details
+                  Call Now
                 </Button>
               </Link>
             </Box>
